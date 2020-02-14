@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+stack<char> st;
+void fun(string s,int cib,int cub,int lcib,int rcib,int lcub,int rcub)
+{
+    //cout<<s<<endl;
+    if(s.size()==2*(cib+cub))
+    {
+        cout<<s<<endl;
+        return ;
+    }
+        if(lcib<cib)
+            {   st.push('(');fun(s+'(',cib,cub,lcib+1,rcib,lcub,rcub); st.pop();}
+        if(lcub<cub)
+            {   st.push('{');fun(s+'{',cib,cub,lcib,rcib,lcub+1,rcub); st.pop();}
+        if(lcib>rcib&&st.top()=='(')
+            {st.pop();  fun(s+')',cib,cub,lcib,rcib+1,lcub,rcub); st.push('(');}
+        if(lcub>rcub&&st.top()=='{')
+            {st.pop();   fun(s+'}',cib,cub,lcib,rcib,lcub,rcub+1); st.push('{');}   
+}
+int main() {
+    int n,m;
+    cin>>n>>m;
+    string s;
+    fun(s,n,m,0,0,0,0);
+    return 0;
+}
